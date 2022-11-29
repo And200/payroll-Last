@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="payroll-social-payment-heading"
+        data-cy="SocialPaymentCreateUpdateHeading"
+        payrollTranslate="payrollApp.socialPayment.home.createOrEditLabel"
+      >
+        Create or edit a Social Payment
+      </h2>
+
+      <div>
+        <payroll-alert-error></payroll-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" payrollTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" payrollTranslate="payrollApp.socialPayment.socialPaymentName" for="field_socialPaymentName"
+            >Social Payment Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="socialPaymentName"
+            id="field_socialPaymentName"
+            data-cy="socialPaymentName"
+            formControlName="socialPaymentName"
+          />
+          <div
+            *ngIf="
+              editForm.get('socialPaymentName')!.invalid &&
+              (editForm.get('socialPaymentName')!.dirty || editForm.get('socialPaymentName')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('socialPaymentName')?.errors?.required"
+              payrollTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('socialPaymentName')?.errors?.maxlength"
+              payrollTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span payrollTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span payrollTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "payrollApp": {
+    "payroll": {
+      "home": {
+        "title": "Payrolls",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Payroll",
+        "createOrEditLabel": "Crear o editar Payroll",
+        "notFound": "Ningún Payrolls encontrado"
+      },
+      "created": "Un nuevo Payroll ha sido creado con el identificador {{ param }}",
+      "updated": "Un Payroll ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Payroll ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Payroll {{ id }}?"
+      },
+      "detail": {
+        "title": "Payroll"
+      },
+      "id": "ID",
+      "workedDays": "Worked Days",
+      "baseSalary": "Base Salary",
+      "income": "Income",
+      "deduction": "Deduction",
+      "positionArl": "Position Arl",
+      "employee": "Employee"
+    }
+  }
+}

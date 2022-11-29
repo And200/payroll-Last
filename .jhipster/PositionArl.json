@@ -1,0 +1,40 @@
+{
+  "applications": ["payroll"],
+  "changelogDate": "20221128154008",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "position_arl",
+  "fields": [
+    {
+      "fieldName": "riskLevel",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "positionCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "unique"],
+      "fieldValidateRulesMaxlength": "10"
+    },
+    {
+      "fieldName": "position",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PositionArl",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "payroll",
+      "otherEntityRelationshipName": "positionArl",
+      "relationshipName": "payroll",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,29 @@
+{
+  "applications": ["payroll"],
+  "changelogDate": "20221128155008",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "operator_type",
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "OperatorType",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "operatorType",
+      "relationshipName": "employee",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

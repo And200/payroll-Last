@@ -1,0 +1,182 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="payroll-payroll-heading" data-cy="PayrollCreateUpdateHeading" payrollTranslate="payrollApp.payroll.home.createOrEditLabel">
+        Create or edit a Payroll
+      </h2>
+
+      <div>
+        <payroll-alert-error></payroll-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" payrollTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" payrollTranslate="payrollApp.payroll.workedDays" for="field_workedDays">Worked Days</label>
+          <input
+            type="number"
+            class="form-control"
+            name="workedDays"
+            id="field_workedDays"
+            data-cy="workedDays"
+            formControlName="workedDays"
+          />
+          <div *ngIf="editForm.get('workedDays')!.invalid && (editForm.get('workedDays')!.dirty || editForm.get('workedDays')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('workedDays')?.errors?.required"
+              payrollTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('workedDays')?.errors?.number"
+              payrollTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" payrollTranslate="payrollApp.payroll.baseSalary" for="field_baseSalary">Base Salary</label>
+          <input
+            type="number"
+            class="form-control"
+            name="baseSalary"
+            id="field_baseSalary"
+            data-cy="baseSalary"
+            formControlName="baseSalary"
+          />
+          <div *ngIf="editForm.get('baseSalary')!.invalid && (editForm.get('baseSalary')!.dirty || editForm.get('baseSalary')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('baseSalary')?.errors?.required"
+              payrollTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('baseSalary')?.errors?.number"
+              payrollTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" payrollTranslate="payrollApp.payroll.income" for="field_income">Income</label>
+          <select class="form-control" id="field_income" data-cy="income" name="income" formControlName="income">
+            <option *ngIf="!editForm.get('income')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="incomeOption.id === editForm.get('income')!.value?.id ? editForm.get('income')!.value : incomeOption"
+              *ngFor="let incomeOption of incomesSharedCollection; trackBy: trackIncomeById"
+            >
+              {{ incomeOption.description }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['income'])!.invalid && (editForm.get(['income'])!.dirty || editForm.get(['income'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['income'])?.errors?.required"
+            payrollTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" payrollTranslate="payrollApp.payroll.deduction" for="field_deduction">Deduction</label>
+          <select class="form-control" id="field_deduction" data-cy="deduction" name="deduction" formControlName="deduction">
+            <option *ngIf="!editForm.get('deduction')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="deductionOption.id === editForm.get('deduction')!.value?.id ? editForm.get('deduction')!.value : deductionOption"
+              *ngFor="let deductionOption of deductionsSharedCollection; trackBy: trackDeductionById"
+            >
+              {{ deductionOption.description }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['deduction'])!.invalid && (editForm.get(['deduction'])!.dirty || editForm.get(['deduction'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['deduction'])?.errors?.required"
+            payrollTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" payrollTranslate="payrollApp.payroll.positionArl" for="field_positionArl">Position Arl</label>
+          <select class="form-control" id="field_positionArl" data-cy="positionArl" name="positionArl" formControlName="positionArl">
+            <option *ngIf="!editForm.get('positionArl')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                positionArlOption.id === editForm.get('positionArl')!.value?.id ? editForm.get('positionArl')!.value : positionArlOption
+              "
+              *ngFor="let positionArlOption of positionArlsSharedCollection; trackBy: trackPositionArlById"
+            >
+              {{ positionArlOption.riskLevel }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['positionArl'])!.invalid && (editForm.get(['positionArl'])!.dirty || editForm.get(['positionArl'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['positionArl'])?.errors?.required"
+            payrollTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" payrollTranslate="payrollApp.payroll.employee" for="field_employee">Employee</label>
+          <select class="form-control" id="field_employee" data-cy="employee" name="employee" formControlName="employee">
+            <option *ngIf="!editForm.get('employee')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="employeeOption.id === editForm.get('employee')!.value?.id ? editForm.get('employee')!.value : employeeOption"
+              *ngFor="let employeeOption of employeesSharedCollection; trackBy: trackEmployeeById"
+            >
+              {{ employeeOption.completeName }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['employee'])!.invalid && (editForm.get(['employee'])!.dirty || editForm.get(['employee'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['employee'])?.errors?.required"
+            payrollTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span payrollTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span payrollTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

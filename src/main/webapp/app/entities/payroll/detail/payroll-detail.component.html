@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="payroll">
+      <h2 data-cy="payrollDetailsHeading"><span payrollTranslate="payrollApp.payroll.detail.title">Payroll</span></h2>
+
+      <hr />
+
+      <payroll-alert-error></payroll-alert-error>
+
+      <payroll-alert></payroll-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span payrollTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ payroll.id }}</span>
+        </dd>
+        <dt><span payrollTranslate="payrollApp.payroll.workedDays">Worked Days</span></dt>
+        <dd>
+          <span>{{ payroll.workedDays }}</span>
+        </dd>
+        <dt><span payrollTranslate="payrollApp.payroll.baseSalary">Base Salary</span></dt>
+        <dd>
+          <span>{{ payroll.baseSalary }}</span>
+        </dd>
+        <dt><span payrollTranslate="payrollApp.payroll.income">Income</span></dt>
+        <dd>
+          <div *ngIf="payroll.income">
+            <a [routerLink]="['/income', payroll.income?.id, 'view']">{{ payroll.income?.description }}</a>
+          </div>
+        </dd>
+        <dt><span payrollTranslate="payrollApp.payroll.deduction">Deduction</span></dt>
+        <dd>
+          <div *ngIf="payroll.deduction">
+            <a [routerLink]="['/deduction', payroll.deduction?.id, 'view']">{{ payroll.deduction?.description }}</a>
+          </div>
+        </dd>
+        <dt><span payrollTranslate="payrollApp.payroll.positionArl">Position Arl</span></dt>
+        <dd>
+          <div *ngIf="payroll.positionArl">
+            <a [routerLink]="['/position-arl', payroll.positionArl?.id, 'view']">{{ payroll.positionArl?.riskLevel }}</a>
+          </div>
+        </dd>
+        <dt><span payrollTranslate="payrollApp.payroll.employee">Employee</span></dt>
+        <dd>
+          <div *ngIf="payroll.employee">
+            <a [routerLink]="['/employee', payroll.employee?.id, 'view']">{{ payroll.employee?.completeName }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span payrollTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/payroll', payroll.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span payrollTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

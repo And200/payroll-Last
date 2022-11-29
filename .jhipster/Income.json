@@ -1,0 +1,56 @@
+{
+  "applications": ["payroll"],
+  "changelogDate": "20221128154308",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "income",
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "nocturnalSurchage",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sundays",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "holidays",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "bonus",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Income",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "payroll",
+      "otherEntityRelationshipName": "income",
+      "relationshipName": "payroll",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "accountPlan",
+      "otherEntityRelationshipName": "income",
+      "relationshipName": "accountPlan",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

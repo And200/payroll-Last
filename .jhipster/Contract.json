@@ -1,0 +1,28 @@
+{
+  "applications": ["payroll"],
+  "changelogDate": "20221128153708",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "contract",
+  "fields": [
+    {
+      "fieldName": "salary",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Contract",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "contract",
+      "relationshipName": "employee",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

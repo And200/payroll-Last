@@ -1,0 +1,35 @@
+{
+  "applications": ["payroll"],
+  "changelogDate": "20221128154608",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "cost_center",
+  "fields": [
+    {
+      "fieldName": "costCenterName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "unique"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "costCenterType",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CostCenter",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "projectMaster",
+      "otherEntityRelationshipName": "costCenter",
+      "relationshipName": "projectMaster",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

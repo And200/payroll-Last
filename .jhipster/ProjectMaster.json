@@ -1,0 +1,51 @@
+{
+  "applications": ["payroll"],
+  "changelogDate": "20221128154708",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "project_master",
+  "fields": [
+    {
+      "fieldName": "projectMasterName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "unique"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "projectDirectorName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ProjectMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "completeName",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "projectMaster",
+      "relationshipName": "employee",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "costCenterName",
+      "otherEntityName": "costCenter",
+      "otherEntityRelationshipName": "projectMaster",
+      "relationshipName": "costCenter",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

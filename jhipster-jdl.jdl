@@ -1,0 +1,157 @@
+application {
+    config {
+        baseName payroll
+        applicationType monolith
+        packageName co.edu.sena
+        authenticationType jwt
+        devDatabaseType mysql
+        prodDatabaseType mysql
+        cacheProvider no
+        buildTool maven
+        clientFramework angularX
+        enableTranslation true
+        nativeLanguage es
+        languages [en, es]
+        //websocket spring-websocket
+        //testFrameworks [cucumber]
+        //entitySuffix false
+        jhiPrefix payroll
+        reactive false
+        serverPort 8080
+        searchEngine false
+  		clientTheme slate
+        clientThemeVariant primary
+       
+    }
+    entities *
+  
+}
+
+entity Contract{
+salary Double required
+}
+
+enum StateDocument{
+ACTIVE(ACTIVO) 
+INACTIVE(INACTIVO) 
+}
+
+entity DocumentType{
+documentName String required maxlength(50) unique
+initials String required maxlength(10) unique
+stateDocumentType StateDocument required
+}
+
+entity Employee{
+completeName String required maxlength(100) unique
+documentNumber Integer required unique
+address String required maxlength(100)
+dateStart ZonedDateTime required 
+city String required maxlength(50)
+mobile Integer required
+stateEmployee StateEmployee required
+}
+
+entity PositionArl{
+riskLevel Integer required 
+positionCode String required maxlength(10) unique
+position String required maxlength(100)
+}
+
+enum StateEmployee{
+ACTIVE(ACTIVO)
+INACTIVE(INACTIVO)
+}
+
+entity SocialSecurity{
+eps String required maxlength(100)
+afp String required maxlength(100)
+}
+
+entity Payroll{
+	workedDays Integer required
+    baseSalary Double required
+    
+}
+entity Income{
+description String required maxlength(100)
+nocturnalSurchage Double required
+sundays Double required
+holidays Double required 
+bonus Double required 
+}
+
+entity Deduction{
+description String required maxlength(100)
+}
+
+entity Period{
+description String required maxlength(100)
+}
+
+entity CostCenter{
+costCenterName String required maxlength(100) unique
+costCenterType String required maxlength(100)
+}
+
+entity ProjectMaster{
+projectMasterName String required maxlength(100) unique
+projectDirectorName String required maxlength(100)
+phone String required maxlength(100)
+}
+
+entity AccountPlan{
+description String required maxlength(100)
+}
+
+entity SocialPayment{
+socialPaymentName String required maxlength(50)
+}
+
+
+
+entity OperatorType{
+description String required maxlength(100)
+}
+
+entity OperatorMatriz{
+name String required maxlength(100) unique
+address String required maxlength(100)
+city String required maxlength(100)
+email String required maxlength(100)
+}
+
+entity DetailEmployeeSocialPayment{
+ description String required maxlength(100)
+}
+
+relationship OneToMany{
+
+Contract to Employee {contract(salary) required}
+Period to Employee {period(description) required} 
+OperatorType to Employee {operatorType(description) required} 
+Employee to DetailEmployeeSocialPayment {employee(completeName) required} 
+SocialPayment to DetailEmployeeSocialPayment {socialPayment(socialPaymentName) required} 
+Income  to Payroll {income(description) required}
+SocialSecurity to Employee  {socialSecurity(eps) required}  
+OperatorMatriz to Employee   {operatorMatriz(name) required} 
+Deduction  to Payroll  {deduction(description) required} 
+Employee to ProjectMaster {employee(completeName) required} 
+DocumentType to Employee {documentType(documentName) required} 
+PositionArl  to Payroll {positionArl(riskLevel) required }
+AccountPlan  to Income {accountPlan required }
+AccountPlan to Deduction  {accountPlan required }
+Employee  to Payroll {employee(completeName) required} 
+CostCenter to ProjectMaster {costCenter(costCenterName) required} 
+}
+
+
+
+relationship OneToOne{
+	Employee{user(login) required} to User
+}
+
+
+dto * with mapstruct
+service * with serviceImpl
+paginate * with pagination

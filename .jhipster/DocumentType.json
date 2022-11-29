@@ -1,0 +1,41 @@
+{
+  "applications": ["payroll"],
+  "changelogDate": "20221128153808",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "document_type",
+  "fields": [
+    {
+      "fieldName": "documentName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "unique"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "initials",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "unique"],
+      "fieldValidateRulesMaxlength": "10"
+    },
+    {
+      "fieldName": "stateDocumentType",
+      "fieldType": "StateDocument",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ACTIVE (ACTIVO),INACTIVE (INACTIVO)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "DocumentType",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "documentType",
+      "relationshipName": "employee",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

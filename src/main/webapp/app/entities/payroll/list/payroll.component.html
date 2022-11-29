@@ -1,0 +1,134 @@
+<div>
+  <h2 id="page-heading" data-cy="PayrollHeading">
+    <span payrollTranslate="payrollApp.payroll.home.title">Payrolls</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span payrollTranslate="payrollApp.payroll.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-payroll"
+        [routerLink]="['/payroll/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span payrollTranslate="payrollApp.payroll.home.createLabel"> Create a new Payroll </span>
+      </button>
+    </div>
+  </h2>
+
+  <payroll-alert-error></payroll-alert-error>
+
+  <payroll-alert></payroll-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="payrolls?.length === 0">
+    <span payrollTranslate="payrollApp.payroll.home.notFound">No payrolls found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="payrolls && payrolls.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr payrollSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" payrollSortBy="id"><span payrollTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" payrollSortBy="workedDays">
+            <span payrollTranslate="payrollApp.payroll.workedDays">Worked Days</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" payrollSortBy="baseSalary">
+            <span payrollTranslate="payrollApp.payroll.baseSalary">Base Salary</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" payrollSortBy="income.description">
+            <span payrollTranslate="payrollApp.payroll.income">Income</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" payrollSortBy="deduction.description">
+            <span payrollTranslate="payrollApp.payroll.deduction">Deduction</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" payrollSortBy="positionArl.riskLevel">
+            <span payrollTranslate="payrollApp.payroll.positionArl">Position Arl</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" payrollSortBy="employee.completeName">
+            <span payrollTranslate="payrollApp.payroll.employee">Employee</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payroll of payrolls; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/payroll', payroll.id, 'view']">{{ payroll.id }}</a>
+          </td>
+          <td>{{ payroll.workedDays }}</td>
+          <td>{{ payroll.baseSalary }}</td>
+          <td>
+            <div *ngIf="payroll.income">
+              <a [routerLink]="['/income', payroll.income?.id, 'view']">{{ payroll.income?.description }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="payroll.deduction">
+              <a [routerLink]="['/deduction', payroll.deduction?.id, 'view']">{{ payroll.deduction?.description }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="payroll.positionArl">
+              <a [routerLink]="['/position-arl', payroll.positionArl?.id, 'view']">{{ payroll.positionArl?.riskLevel }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="payroll.employee">
+              <a [routerLink]="['/employee', payroll.employee?.id, 'view']">{{ payroll.employee?.completeName }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/payroll', payroll.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" payrollTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/payroll', payroll.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" payrollTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(payroll)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" payrollTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="payrolls && payrolls.length > 0">
+    <div class="d-flex justify-content-center">
+      <payroll-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></payroll-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

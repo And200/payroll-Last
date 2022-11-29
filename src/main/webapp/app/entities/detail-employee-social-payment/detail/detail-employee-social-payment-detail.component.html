@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="detailEmployeeSocialPayment">
+      <h2 data-cy="detailEmployeeSocialPaymentDetailsHeading">
+        <span payrollTranslate="payrollApp.detailEmployeeSocialPayment.detail.title">Detail Employee Social Payment</span>
+      </h2>
+
+      <hr />
+
+      <payroll-alert-error></payroll-alert-error>
+
+      <payroll-alert></payroll-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span payrollTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ detailEmployeeSocialPayment.id }}</span>
+        </dd>
+        <dt><span payrollTranslate="payrollApp.detailEmployeeSocialPayment.description">Description</span></dt>
+        <dd>
+          <span>{{ detailEmployeeSocialPayment.description }}</span>
+        </dd>
+        <dt><span payrollTranslate="payrollApp.detailEmployeeSocialPayment.employee">Employee</span></dt>
+        <dd>
+          <div *ngIf="detailEmployeeSocialPayment.employee">
+            <a [routerLink]="['/employee', detailEmployeeSocialPayment.employee?.id, 'view']">{{
+              detailEmployeeSocialPayment.employee?.completeName
+            }}</a>
+          </div>
+        </dd>
+        <dt><span payrollTranslate="payrollApp.detailEmployeeSocialPayment.socialPayment">Social Payment</span></dt>
+        <dd>
+          <div *ngIf="detailEmployeeSocialPayment.socialPayment">
+            <a [routerLink]="['/social-payment', detailEmployeeSocialPayment.socialPayment?.id, 'view']">{{
+              detailEmployeeSocialPayment.socialPayment?.socialPaymentName
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span payrollTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/detail-employee-social-payment', detailEmployeeSocialPayment.id, 'edit']"
+        class="btn btn-primary"
+      >
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span payrollTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "applications": ["payroll"],
+  "changelogDate": "20221128154908",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "social_payment",
+  "fields": [
+    {
+      "fieldName": "socialPaymentName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "SocialPayment",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "detailEmployeeSocialPayment",
+      "otherEntityRelationshipName": "socialPayment",
+      "relationshipName": "detailEmployeeSocialPayment",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

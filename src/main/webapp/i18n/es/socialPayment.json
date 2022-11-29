@@ -1,0 +1,25 @@
+{
+  "payrollApp": {
+    "socialPayment": {
+      "home": {
+        "title": "Social Payments",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Social Payment",
+        "createOrEditLabel": "Crear o editar Social Payment",
+        "notFound": "Ningún Social Payments encontrado"
+      },
+      "created": "Un nuevo Social Payment ha sido creado con el identificador {{ param }}",
+      "updated": "Un Social Payment ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Social Payment ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Social Payment {{ id }}?"
+      },
+      "detail": {
+        "title": "Social Payment"
+      },
+      "id": "ID",
+      "socialPaymentName": "Social Payment Name",
+      "detailEmployeeSocialPayment": "Detail Employee Social Payment"
+    }
+  }
+}

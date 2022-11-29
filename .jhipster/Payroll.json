@@ -1,0 +1,59 @@
+{
+  "applications": ["payroll"],
+  "changelogDate": "20221128154208",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "payroll",
+  "fields": [
+    {
+      "fieldName": "workedDays",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "baseSalary",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Payroll",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "description",
+      "otherEntityName": "income",
+      "otherEntityRelationshipName": "payroll",
+      "relationshipName": "income",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "description",
+      "otherEntityName": "deduction",
+      "otherEntityRelationshipName": "payroll",
+      "relationshipName": "deduction",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "riskLevel",
+      "otherEntityName": "positionArl",
+      "otherEntityRelationshipName": "payroll",
+      "relationshipName": "positionArl",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "completeName",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "payroll",
+      "relationshipName": "employee",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

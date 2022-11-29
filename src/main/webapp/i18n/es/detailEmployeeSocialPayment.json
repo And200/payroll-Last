@@ -1,0 +1,26 @@
+{
+  "payrollApp": {
+    "detailEmployeeSocialPayment": {
+      "home": {
+        "title": "Detail Employee Social Payments",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Detail Employee Social Payment",
+        "createOrEditLabel": "Crear o editar Detail Employee Social Payment",
+        "notFound": "Ningún Detail Employee Social Payments encontrado"
+      },
+      "created": "Un nuevo Detail Employee Social Payment ha sido creado con el identificador {{ param }}",
+      "updated": "Un Detail Employee Social Payment ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Detail Employee Social Payment ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Detail Employee Social Payment {{ id }}?"
+      },
+      "detail": {
+        "title": "Detail Employee Social Payment"
+      },
+      "id": "ID",
+      "description": "Description",
+      "employee": "Employee",
+      "socialPayment": "Social Payment"
+    }
+  }
+}

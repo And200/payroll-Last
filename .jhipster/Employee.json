@@ -1,0 +1,131 @@
+{
+  "applications": ["payroll"],
+  "changelogDate": "20221128153908",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "employee",
+  "fields": [
+    {
+      "fieldName": "completeName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "unique"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "documentNumber",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "dateStart",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "mobile",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "stateEmployee",
+      "fieldType": "StateEmployee",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ACTIVE (ACTIVO),INACTIVE (INACTIVO)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Employee",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "employee",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "detailEmployeeSocialPayment",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "detailEmployeeSocialPayment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "projectMaster",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "projectMaster",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "payroll",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "payroll",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "salary",
+      "otherEntityName": "contract",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "contract",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "description",
+      "otherEntityName": "period",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "period",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "description",
+      "otherEntityName": "operatorType",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "operatorType",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "eps",
+      "otherEntityName": "socialSecurity",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "socialSecurity",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "operatorMatriz",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "operatorMatriz",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "documentName",
+      "otherEntityName": "documentType",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "documentType",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

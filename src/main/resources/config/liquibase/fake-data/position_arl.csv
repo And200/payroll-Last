@@ -1,11 +1,13 @@
 id;risk_level;position_code;position
-1;65243;Global;Liechtenstein Gris Central
-2;10846;Amarillo P;cross-platform
-3;94688;hacking na;iniciativa
-4;90442;Account Ta;compressing
-5;33810;bus Hong;invoice SAS
-6;88363;Madera Gua;medición
-7;41511;Pelota Con;invoice
-8;87731;sensor byp;Hormigon medición
-9;36320;connect sy;users infomediaries sistema
-10;96943;migración ;auxiliary synthesizing Para
+1;1;2411;Contadores
+2;1;2411;Auditores Financieros
+3;1;2411;Revisor Fiscal
+4;1;4311;Auxiliar Contable
+5;1;4311;Auxiliar de Costos
+6;1;2611;Abogados
+7;1;4313;Auxiliares N�mina
+8;1;2413;Analistas financieros
+9;1;2512;Desarrolladores de software
+10;1;2522;Administrador de Sistemas
+11;1;3514;Tecnicos de  la Web
+12;5;2142;Ingenieros Civiles

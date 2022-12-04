@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.PeriodRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.PeriodService;
 import co.edu.sena.service.dto.PeriodDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,6 +58,7 @@ public class PeriodResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/periods")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<PeriodDTO> createPeriod(@Valid @RequestBody PeriodDTO periodDTO) throws URISyntaxException {
         log.debug("REST request to save Period : {}", periodDTO);
         if (periodDTO.getId() != null) {
@@ -79,6 +82,7 @@ public class PeriodResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/periods/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<PeriodDTO> updatePeriod(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody PeriodDTO periodDTO
@@ -114,6 +118,7 @@ public class PeriodResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/periods/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<PeriodDTO> partialUpdatePeriod(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody PeriodDTO periodDTO
@@ -145,6 +150,7 @@ public class PeriodResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of periods in body.
      */
     @GetMapping("/periods")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<List<PeriodDTO>> getAllPeriods(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Periods");
         Page<PeriodDTO> page = periodService.findAll(pageable);
@@ -159,6 +165,7 @@ public class PeriodResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the periodDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/periods/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<PeriodDTO> getPeriod(@PathVariable Long id) {
         log.debug("REST request to get Period : {}", id);
         Optional<PeriodDTO> periodDTO = periodService.findOne(id);
@@ -172,6 +179,7 @@ public class PeriodResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/periods/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<Void> deletePeriod(@PathVariable Long id) {
         log.debug("REST request to delete Period : {}", id);
         periodService.delete(id);

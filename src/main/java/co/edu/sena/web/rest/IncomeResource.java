@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.IncomeRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.IncomeService;
 import co.edu.sena.service.dto.IncomeDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,6 +58,7 @@ public class IncomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/incomes")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<IncomeDTO> createIncome(@Valid @RequestBody IncomeDTO incomeDTO) throws URISyntaxException {
         log.debug("REST request to save Income : {}", incomeDTO);
         if (incomeDTO.getId() != null) {
@@ -79,6 +82,7 @@ public class IncomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/incomes/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<IncomeDTO> updateIncome(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody IncomeDTO incomeDTO
@@ -114,6 +118,7 @@ public class IncomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/incomes/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<IncomeDTO> partialUpdateIncome(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody IncomeDTO incomeDTO
@@ -145,6 +150,15 @@ public class IncomeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of incomes in body.
      */
     @GetMapping("/incomes")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<List<IncomeDTO>> getAllIncomes(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Incomes");
         Page<IncomeDTO> page = incomeService.findAll(pageable);
@@ -159,6 +173,15 @@ public class IncomeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the incomeDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/incomes/{id}")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<IncomeDTO> getIncome(@PathVariable Long id) {
         log.debug("REST request to get Income : {}", id);
         Optional<IncomeDTO> incomeDTO = incomeService.findOne(id);
@@ -172,6 +195,7 @@ public class IncomeResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/incomes/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<Void> deleteIncome(@PathVariable Long id) {
         log.debug("REST request to delete Income : {}", id);
         incomeService.delete(id);

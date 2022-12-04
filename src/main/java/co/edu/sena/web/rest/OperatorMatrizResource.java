@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.OperatorMatrizRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.OperatorMatrizService;
 import co.edu.sena.service.dto.OperatorMatrizDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,11 +58,14 @@ public class OperatorMatrizResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/operator-matrizs")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<OperatorMatrizDTO> createOperatorMatriz(@Valid @RequestBody OperatorMatrizDTO operatorMatrizDTO)
         throws URISyntaxException {
         log.debug("REST request to save OperatorMatriz : {}", operatorMatrizDTO);
         if (operatorMatrizDTO.getId() != null) {
             throw new BadRequestAlertException("A new operatorMatriz cannot already have an ID", ENTITY_NAME, "idexists");
+        } else if (operatorMatrizRepository.findByName(operatorMatrizDTO.getName()).isPresent()) {
+            throw new BadRequestAlertException("A new OperatorMatriz cannot already have an existing Name", ENTITY_NAME, "nameExist");
         }
         OperatorMatrizDTO result = operatorMatrizService.save(operatorMatrizDTO);
         return ResponseEntity
@@ -80,6 +85,7 @@ public class OperatorMatrizResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/operator-matrizs/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<OperatorMatrizDTO> updateOperatorMatriz(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody OperatorMatrizDTO operatorMatrizDTO
@@ -115,6 +121,7 @@ public class OperatorMatrizResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/operator-matrizs/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<OperatorMatrizDTO> partialUpdateOperatorMatriz(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody OperatorMatrizDTO operatorMatrizDTO
@@ -146,6 +153,7 @@ public class OperatorMatrizResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of operatorMatrizs in body.
      */
     @GetMapping("/operator-matrizs")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<List<OperatorMatrizDTO>> getAllOperatorMatrizs(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of OperatorMatrizs");
         Page<OperatorMatrizDTO> page = operatorMatrizService.findAll(pageable);
@@ -173,6 +181,7 @@ public class OperatorMatrizResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/operator-matrizs/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<Void> deleteOperatorMatriz(@PathVariable Long id) {
         log.debug("REST request to delete OperatorMatriz : {}", id);
         operatorMatrizService.delete(id);

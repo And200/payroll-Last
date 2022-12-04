@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.ContractRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.ContractService;
 import co.edu.sena.service.dto.ContractDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,6 +58,7 @@ public class ContractResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/contracts")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<ContractDTO> createContract(@Valid @RequestBody ContractDTO contractDTO) throws URISyntaxException {
         log.debug("REST request to save Contract : {}", contractDTO);
         if (contractDTO.getId() != null) {
@@ -79,6 +82,7 @@ public class ContractResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/contracts/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<ContractDTO> updateContract(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody ContractDTO contractDTO
@@ -114,6 +118,7 @@ public class ContractResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/contracts/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<ContractDTO> partialUpdateContract(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody ContractDTO contractDTO
@@ -145,6 +150,7 @@ public class ContractResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of contracts in body.
      */
     @GetMapping("/contracts")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<List<ContractDTO>> getAllContracts(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Contracts");
         Page<ContractDTO> page = contractService.findAll(pageable);
@@ -159,6 +165,7 @@ public class ContractResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the contractDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/contracts/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<ContractDTO> getContract(@PathVariable Long id) {
         log.debug("REST request to get Contract : {}", id);
         Optional<ContractDTO> contractDTO = contractService.findOne(id);
@@ -172,6 +179,7 @@ public class ContractResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/contracts/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<Void> deleteContract(@PathVariable Long id) {
         log.debug("REST request to delete Contract : {}", id);
         contractService.delete(id);

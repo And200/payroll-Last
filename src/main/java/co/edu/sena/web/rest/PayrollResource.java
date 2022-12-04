@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.PayrollRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.PayrollService;
 import co.edu.sena.service.dto.PayrollDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,6 +58,15 @@ public class PayrollResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/payrolls")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<PayrollDTO> createPayroll(@Valid @RequestBody PayrollDTO payrollDTO) throws URISyntaxException {
         log.debug("REST request to save Payroll : {}", payrollDTO);
         if (payrollDTO.getId() != null) {
@@ -79,6 +90,15 @@ public class PayrollResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/payrolls/{id}")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<PayrollDTO> updatePayroll(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody PayrollDTO payrollDTO
@@ -114,6 +134,15 @@ public class PayrollResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/payrolls/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<PayrollDTO> partialUpdatePayroll(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody PayrollDTO payrollDTO
@@ -146,6 +175,15 @@ public class PayrollResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of payrolls in body.
      */
     @GetMapping("/payrolls")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<List<PayrollDTO>> getAllPayrolls(
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         @RequestParam(required = false, defaultValue = "true") boolean eagerload
@@ -168,6 +206,7 @@ public class PayrollResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the payrollDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/payrolls/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')")
     public ResponseEntity<PayrollDTO> getPayroll(@PathVariable Long id) {
         log.debug("REST request to get Payroll : {}", id);
         Optional<PayrollDTO> payrollDTO = payrollService.findOne(id);
@@ -181,6 +220,15 @@ public class PayrollResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/payrolls/{id}")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<Void> deletePayroll(@PathVariable Long id) {
         log.debug("REST request to delete Payroll : {}", id);
         payrollService.delete(id);

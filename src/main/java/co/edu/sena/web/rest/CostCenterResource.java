@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.CostCenterRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.CostCenterService;
 import co.edu.sena.service.dto.CostCenterDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,10 +58,13 @@ public class CostCenterResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/cost-centers")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<CostCenterDTO> createCostCenter(@Valid @RequestBody CostCenterDTO costCenterDTO) throws URISyntaxException {
         log.debug("REST request to save CostCenter : {}", costCenterDTO);
         if (costCenterDTO.getId() != null) {
             throw new BadRequestAlertException("A new costCenter cannot already have an ID", ENTITY_NAME, "idexists");
+        } else if (costCenterRepository.findByCostCenterName(costCenterDTO.getCostCenterName()).isPresent()) {
+            throw new BadRequestAlertException("The cost center name already exist", ENTITY_NAME, "costCenterNameExist");
         }
         CostCenterDTO result = costCenterService.save(costCenterDTO);
         return ResponseEntity
@@ -79,6 +84,7 @@ public class CostCenterResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/cost-centers/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<CostCenterDTO> updateCostCenter(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody CostCenterDTO costCenterDTO
@@ -114,6 +120,7 @@ public class CostCenterResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/cost-centers/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<CostCenterDTO> partialUpdateCostCenter(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody CostCenterDTO costCenterDTO
@@ -145,6 +152,7 @@ public class CostCenterResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of costCenters in body.
      */
     @GetMapping("/cost-centers")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<List<CostCenterDTO>> getAllCostCenters(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of CostCenters");
         Page<CostCenterDTO> page = costCenterService.findAll(pageable);
@@ -159,6 +167,7 @@ public class CostCenterResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the costCenterDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/cost-centers/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<CostCenterDTO> getCostCenter(@PathVariable Long id) {
         log.debug("REST request to get CostCenter : {}", id);
         Optional<CostCenterDTO> costCenterDTO = costCenterService.findOne(id);
@@ -172,6 +181,7 @@ public class CostCenterResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/cost-centers/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<Void> deleteCostCenter(@PathVariable Long id) {
         log.debug("REST request to delete CostCenter : {}", id);
         costCenterService.delete(id);

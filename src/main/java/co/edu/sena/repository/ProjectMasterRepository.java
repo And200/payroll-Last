@@ -41,4 +41,6 @@ public interface ProjectMasterRepository extends JpaRepository<ProjectMaster, Lo
         "select projectMaster from ProjectMaster projectMaster left join fetch projectMaster.employee left join fetch projectMaster.costCenter where projectMaster.id =:id"
     )
     Optional<ProjectMaster> findOneWithToOneRelationships(@Param("id") Long id);
+
+    Optional<ProjectMaster> findByProjectMasterName(String name);
 }

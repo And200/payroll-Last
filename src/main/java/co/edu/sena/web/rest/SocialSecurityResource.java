@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.SocialSecurityRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.SocialSecurityService;
 import co.edu.sena.service.dto.SocialSecurityDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,6 +58,7 @@ public class SocialSecurityResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/social-securities")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<SocialSecurityDTO> createSocialSecurity(@Valid @RequestBody SocialSecurityDTO socialSecurityDTO)
         throws URISyntaxException {
         log.debug("REST request to save SocialSecurity : {}", socialSecurityDTO);
@@ -80,6 +83,7 @@ public class SocialSecurityResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/social-securities/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<SocialSecurityDTO> updateSocialSecurity(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody SocialSecurityDTO socialSecurityDTO
@@ -115,6 +119,7 @@ public class SocialSecurityResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/social-securities/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<SocialSecurityDTO> partialUpdateSocialSecurity(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody SocialSecurityDTO socialSecurityDTO
@@ -146,6 +151,7 @@ public class SocialSecurityResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of socialSecurities in body.
      */
     @GetMapping("/social-securities")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<List<SocialSecurityDTO>> getAllSocialSecurities(
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
@@ -162,6 +168,7 @@ public class SocialSecurityResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the socialSecurityDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/social-securities/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<SocialSecurityDTO> getSocialSecurity(@PathVariable Long id) {
         log.debug("REST request to get SocialSecurity : {}", id);
         Optional<SocialSecurityDTO> socialSecurityDTO = socialSecurityService.findOne(id);
@@ -175,6 +182,7 @@ public class SocialSecurityResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/social-securities/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<Void> deleteSocialSecurity(@PathVariable Long id) {
         log.debug("REST request to delete SocialSecurity : {}", id);
         socialSecurityService.delete(id);

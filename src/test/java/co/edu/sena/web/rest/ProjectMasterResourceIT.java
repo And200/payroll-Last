@@ -11,6 +11,7 @@ import co.edu.sena.domain.CostCenter;
 import co.edu.sena.domain.Employee;
 import co.edu.sena.domain.ProjectMaster;
 import co.edu.sena.repository.ProjectMasterRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.ProjectMasterService;
 import co.edu.sena.service.dto.ProjectMasterDTO;
 import co.edu.sena.service.mapper.ProjectMasterMapper;
@@ -39,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 class ProjectMasterResourceIT {
 
     private static final String DEFAULT_PROJECT_MASTER_NAME = "AAAAAAAAAA";

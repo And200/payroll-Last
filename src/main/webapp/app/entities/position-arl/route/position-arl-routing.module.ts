@@ -6,6 +6,7 @@ import { PositionArlComponent } from '../list/position-arl.component';
 import { PositionArlDetailComponent } from '../detail/position-arl-detail.component';
 import { PositionArlUpdateComponent } from '../update/position-arl-update.component';
 import { PositionArlRoutingResolveService } from './position-arl-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const positionArlRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const positionArlRoute: Routes = [
     component: PositionArlComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const positionArlRoute: Routes = [
     resolve: {
       positionArl: PositionArlRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const positionArlRoute: Routes = [
     resolve: {
       positionArl: PositionArlRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const positionArlRoute: Routes = [
     component: PositionArlUpdateComponent,
     resolve: {
       positionArl: PositionArlRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
     },
     canActivate: [UserRouteAccessService],
   },

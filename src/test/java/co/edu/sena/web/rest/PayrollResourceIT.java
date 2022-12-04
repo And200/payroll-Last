@@ -13,6 +13,7 @@ import co.edu.sena.domain.Income;
 import co.edu.sena.domain.Payroll;
 import co.edu.sena.domain.PositionArl;
 import co.edu.sena.repository.PayrollRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.PayrollService;
 import co.edu.sena.service.dto.PayrollDTO;
 import co.edu.sena.service.mapper.PayrollMapper;
@@ -41,7 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 class PayrollResourceIT {
 
     private static final Integer DEFAULT_WORKED_DAYS = 1;

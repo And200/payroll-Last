@@ -11,6 +11,7 @@ import co.edu.sena.domain.DetailEmployeeSocialPayment;
 import co.edu.sena.domain.Employee;
 import co.edu.sena.domain.SocialPayment;
 import co.edu.sena.repository.DetailEmployeeSocialPaymentRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.DetailEmployeeSocialPaymentService;
 import co.edu.sena.service.dto.DetailEmployeeSocialPaymentDTO;
 import co.edu.sena.service.mapper.DetailEmployeeSocialPaymentMapper;
@@ -39,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 class DetailEmployeeSocialPaymentResourceIT {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";

@@ -9,6 +9,7 @@ import co.edu.sena.IntegrationTest;
 import co.edu.sena.domain.AccountPlan;
 import co.edu.sena.domain.Deduction;
 import co.edu.sena.repository.DeductionRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.dto.DeductionDTO;
 import co.edu.sena.service.mapper.DeductionMapper;
 import java.util.List;
@@ -29,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 class DeductionResourceIT {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";

@@ -6,6 +6,7 @@ import { OperatorTypeComponent } from '../list/operator-type.component';
 import { OperatorTypeDetailComponent } from '../detail/operator-type-detail.component';
 import { OperatorTypeUpdateComponent } from '../update/operator-type-update.component';
 import { OperatorTypeRoutingResolveService } from './operator-type-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const operatorTypeRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const operatorTypeRoute: Routes = [
     component: OperatorTypeComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const operatorTypeRoute: Routes = [
     resolve: {
       operatorType: OperatorTypeRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const operatorTypeRoute: Routes = [
     resolve: {
       operatorType: OperatorTypeRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const operatorTypeRoute: Routes = [
     component: OperatorTypeUpdateComponent,
     resolve: {
       operatorType: OperatorTypeRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },

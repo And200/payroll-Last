@@ -6,6 +6,7 @@ import { DeductionComponent } from '../list/deduction.component';
 import { DeductionDetailComponent } from '../detail/deduction-detail.component';
 import { DeductionUpdateComponent } from '../update/deduction-update.component';
 import { DeductionRoutingResolveService } from './deduction-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const deductionRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const deductionRoute: Routes = [
     component: DeductionComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const deductionRoute: Routes = [
     resolve: {
       deduction: DeductionRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const deductionRoute: Routes = [
     resolve: {
       deduction: DeductionRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const deductionRoute: Routes = [
     component: DeductionUpdateComponent,
     resolve: {
       deduction: DeductionRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
     },
     canActivate: [UserRouteAccessService],
   },

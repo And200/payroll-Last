@@ -58,7 +58,15 @@ public class IncomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/incomes")
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<IncomeDTO> createIncome(@Valid @RequestBody IncomeDTO incomeDTO) throws URISyntaxException {
         log.debug("REST request to save Income : {}", incomeDTO);
         if (incomeDTO.getId() != null) {
@@ -82,7 +90,15 @@ public class IncomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/incomes/{id}")
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<IncomeDTO> updateIncome(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody IncomeDTO incomeDTO
@@ -118,7 +134,15 @@ public class IncomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/incomes/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<IncomeDTO> partialUpdateIncome(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody IncomeDTO incomeDTO
@@ -195,7 +219,15 @@ public class IncomeResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/incomes/{id}")
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<Void> deleteIncome(@PathVariable Long id) {
         log.debug("REST request to delete Income : {}", id);
         incomeService.delete(id);

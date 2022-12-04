@@ -58,7 +58,15 @@ public class DeductionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/deductions")
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<DeductionDTO> createDeduction(@Valid @RequestBody DeductionDTO deductionDTO) throws URISyntaxException {
         log.debug("REST request to save Deduction : {}", deductionDTO);
         if (deductionDTO.getId() != null) {
@@ -82,7 +90,15 @@ public class DeductionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/deductions/{id}")
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<DeductionDTO> updateDeduction(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody DeductionDTO deductionDTO
@@ -118,7 +134,15 @@ public class DeductionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/deductions/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<DeductionDTO> partialUpdateDeduction(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody DeductionDTO deductionDTO
@@ -195,7 +219,15 @@ public class DeductionResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/deductions/{id}")
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<Void> deleteDeduction(@PathVariable Long id) {
         log.debug("REST request to delete Deduction : {}", id);
         deductionService.delete(id);

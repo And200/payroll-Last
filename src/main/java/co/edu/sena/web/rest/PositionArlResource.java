@@ -58,7 +58,15 @@ public class PositionArlResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/position-arls")
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<PositionArlDTO> createPositionArl(@Valid @RequestBody PositionArlDTO positionArlDTO) throws URISyntaxException {
         log.debug("REST request to save PositionArl : {}", positionArlDTO);
         if (positionArlDTO.getId() != null) {
@@ -88,7 +96,15 @@ public class PositionArlResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/position-arls/{id}")
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<PositionArlDTO> updatePositionArl(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody PositionArlDTO positionArlDTO
@@ -164,7 +180,15 @@ public class PositionArlResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of positionArls in body.
      */
     @GetMapping("/position-arls")
-    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<List<PositionArlDTO>> getAllPositionArls(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of PositionArls");
         Page<PositionArlDTO> page = positionArlService.findAll(pageable);

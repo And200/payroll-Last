@@ -23,7 +23,7 @@ public class AccountPlan implements Serializable {
 
     @NotNull
     @Size(max = 100)
-    @Column(name = "description", length = 100, nullable = false)
+    @Column(name = "description", length = 100, unique = true, nullable = false)
     private String description;
 
     @OneToMany(mappedBy = "accountPlan")

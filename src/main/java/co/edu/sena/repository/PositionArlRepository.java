@@ -10,6 +10,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PositionArlRepository extends JpaRepository<PositionArl, Long> {
-    Optional<PositionArl> findByPositionCode(String code);
-}
+public interface PositionArlRepository extends JpaRepository<PositionArl, Long> {}

@@ -64,10 +64,10 @@ public class DocumentTypeResource {
         log.debug("REST request to save DocumentType : {}", documentTypeDTO);
         if (documentTypeDTO.getId() != null) {
             throw new BadRequestAlertException("A new documentType cannot already have an ID", ENTITY_NAME, "idexists");
-        } else if (documentTypeRepository.findByDocumentName(documentTypeDTO.getInitials()).isPresent()) {
-            throw new BadRequestAlertException("A document name with that name already exists", ENTITY_NAME, "documentNameExist");
         } else if (documentTypeRepository.findByDocumentName(documentTypeDTO.getDocumentName()).isPresent()) {
-            throw new BadRequestAlertException("A document name with that initials already exists", ENTITY_NAME, "documentInitiialsExist");
+            throw new BadRequestAlertException("already exist", ENTITY_NAME, "documentNameExist");
+        } else if (documentTypeRepository.findByInitials(documentTypeDTO.getInitials()).isPresent()) {
+            throw new BadRequestAlertException("already exist these initials", ENTITY_NAME, "documentInitialsExist");
         }
         DocumentTypeDTO result = documentTypeService.save(documentTypeDTO);
         return ResponseEntity

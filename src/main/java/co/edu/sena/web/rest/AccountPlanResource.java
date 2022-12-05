@@ -63,6 +63,12 @@ public class AccountPlanResource {
         log.debug("REST request to save AccountPlan : {}", accountPlanDTO);
         if (accountPlanDTO.getId() != null) {
             throw new BadRequestAlertException("A new accountPlan cannot already have an ID", ENTITY_NAME, "idexists");
+        } else if (accountPlanRepository.findByDescription(accountPlanDTO.getDescription()).isPresent()) {
+            throw new BadRequestAlertException(
+                "A new accountPlan cannot already have an existint Account Plan",
+                ENTITY_NAME,
+                "alreadyExistAccountPlan"
+            );
         }
         AccountPlanDTO result = accountPlanService.save(accountPlanDTO);
         return ResponseEntity

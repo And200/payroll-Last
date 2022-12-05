@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface DocumentTypeRepository extends JpaRepository<DocumentType, Long> {
-    Optional<DocumentType> findByDocumentName(String name);
+    Optional<DocumentType> findByDocumentName(String documentName);
     Optional<DocumentType> findByInitials(String initials);
 }

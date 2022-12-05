@@ -47,8 +47,9 @@ public class Employee implements Serializable {
     private String city;
 
     @NotNull
-    @Column(name = "mobile", nullable = false)
-    private Integer mobile;
+    @Size(max = 50)
+    @Column(name = "mobile", nullable = false, length = 50)
+    private String mobile;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -182,16 +183,16 @@ public class Employee implements Serializable {
         this.city = city;
     }
 
-    public Integer getMobile() {
+    public String getMobile() {
         return this.mobile;
     }
 
-    public Employee mobile(Integer mobile) {
+    public Employee mobile(String mobile) {
         this.setMobile(mobile);
         return this;
     }
 
-    public void setMobile(Integer mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 

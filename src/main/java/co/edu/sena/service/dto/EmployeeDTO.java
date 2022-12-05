@@ -32,7 +32,8 @@ public class EmployeeDTO implements Serializable {
     private String city;
 
     @NotNull
-    private Integer mobile;
+    @Size(max = 50)
+    private String mobile;
 
     @NotNull
     private StateEmployee stateEmployee;
@@ -99,11 +100,11 @@ public class EmployeeDTO implements Serializable {
         this.city = city;
     }
 
-    public Integer getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(Integer mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 

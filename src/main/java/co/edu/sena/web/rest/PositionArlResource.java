@@ -71,12 +71,6 @@ public class PositionArlResource {
         log.debug("REST request to save PositionArl : {}", positionArlDTO);
         if (positionArlDTO.getId() != null) {
             throw new BadRequestAlertException("A new positionArl cannot already have an ID", ENTITY_NAME, "idexists");
-        } else if (positionArlRepository.findByPositionCode(positionArlDTO.getPositionCode()).isPresent()) {
-            throw new BadRequestAlertException(
-                "A new positionArl cannot already have an existing Position Code",
-                ENTITY_NAME,
-                "positionCodeExist"
-            );
         }
         PositionArlDTO result = positionArlService.save(positionArlDTO);
         return ResponseEntity

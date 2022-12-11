@@ -9,5 +9,5 @@ function setupProxy({ tls }) {
   ];
   return conf;
 }
-
+/* export class of setUp proxy to cors */
 module.exports = setupProxy;

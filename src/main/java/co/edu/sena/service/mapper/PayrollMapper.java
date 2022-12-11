@@ -39,6 +39,7 @@ public interface PayrollMapper extends EntityMapper<PayrollDTO, Payroll> {
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "riskLevel", source = "riskLevel")
+    @Mapping(target = "position", source = "position")
     PositionArlDTO toDtoPositionArlRiskLevel(PositionArl positionArl);
 
     @Named("employeeCompleteName")

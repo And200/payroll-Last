@@ -1,6 +1,10 @@
 package co.edu.sena.web.rest;
 
+import co.edu.sena.domain.User;
+import co.edu.sena.domain.User_;
 import co.edu.sena.repository.EmployeeRepository;
+import co.edu.sena.repository.UserRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.EmployeeService;
 import co.edu.sena.service.dto.EmployeeDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -43,9 +48,12 @@ public class EmployeeResource {
 
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeResource(EmployeeService employeeService, EmployeeRepository employeeRepository) {
+    private final UserRepository userRepository;
+
+    public EmployeeResource(UserRepository userRepository, EmployeeService employeeService, EmployeeRepository employeeRepository) {
         this.employeeService = employeeService;
         this.employeeRepository = employeeRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -56,10 +64,34 @@ public class EmployeeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/employees")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<EmployeeDTO> createEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) throws URISyntaxException {
         log.debug("REST request to save Employee : {}", employeeDTO);
+
+        Optional<User> findUser = userRepository.findById(employeeDTO.getUser().getId());
+
         if (employeeDTO.getId() != null) {
             throw new BadRequestAlertException("A new employee cannot already have an ID", ENTITY_NAME, "idexists");
+        } else if (employeeRepository.findByCompleteName(employeeDTO.getCompleteName()).isPresent()) {
+            throw new BadRequestAlertException("A new employee cannot already have an existing name", ENTITY_NAME, "nameExist");
+        } else if (employeeRepository.findByDocumentNumber(employeeDTO.getDocumentNumber()).isPresent()) {
+            throw new BadRequestAlertException(
+                "A new Employee cannot already have an existing document number",
+                ENTITY_NAME,
+                "documentNumberExist"
+            );
+        } else if (findUser.isPresent()) {
+            if (employeeRepository.findByUser(findUser.get()).isPresent()) {
+                throw new BadRequestAlertException("A new Employee cannot already have an existing User", ENTITY_NAME, "userExist");
+            }
         }
         EmployeeDTO result = employeeService.save(employeeDTO);
         return ResponseEntity
@@ -79,6 +111,15 @@ public class EmployeeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/employees/{id}")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<EmployeeDTO> updateEmployee(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody EmployeeDTO employeeDTO
@@ -114,6 +155,15 @@ public class EmployeeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/employees/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<EmployeeDTO> partialUpdateEmployee(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody EmployeeDTO employeeDTO
@@ -146,6 +196,15 @@ public class EmployeeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of employees in body.
      */
     @GetMapping("/employees")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<List<EmployeeDTO>> getAllEmployees(
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         @RequestParam(required = false, defaultValue = "true") boolean eagerload
@@ -168,6 +227,15 @@ public class EmployeeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the employeeDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/employees/{id}")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable Long id) {
         log.debug("REST request to get Employee : {}", id);
         Optional<EmployeeDTO> employeeDTO = employeeService.findOne(id);
@@ -181,6 +249,15 @@ public class EmployeeResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/employees/{id}")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         log.debug("REST request to delete Employee : {}", id);
         employeeService.delete(id);

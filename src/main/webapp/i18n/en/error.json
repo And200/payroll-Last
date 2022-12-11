@@ -9,6 +9,13 @@
       "500": "Internal server error."
     },
     "concurrencyFailure": "Another user modified this data at the same time as you. Your changes were rejected.",
-    "validation": "Validation error on the server."
+    "validation": "Validation error on the server.",
+    "documentNumberExist": "Already exist these document Number",
+    "nameExist": "Already exist and register with these name",
+    "documentInitialsExist": "Already exist these initials",
+    "documentNameExist": "Already exist and Document with these Name",
+    "phoneExist": "Alread exist these phone number",
+    "alreadyExistAccountPlan": "Already Exist that Account Plan",
+    "costCenterNameExist": "Already exist an cost center With these name"
   }
 }

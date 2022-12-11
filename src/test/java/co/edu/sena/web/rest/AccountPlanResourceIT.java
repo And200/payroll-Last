@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import co.edu.sena.IntegrationTest;
 import co.edu.sena.domain.AccountPlan;
 import co.edu.sena.repository.AccountPlanRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.dto.AccountPlanDTO;
 import co.edu.sena.service.mapper.AccountPlanMapper;
 import java.util.List;
@@ -28,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 class AccountPlanResourceIT {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";

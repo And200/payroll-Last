@@ -6,6 +6,7 @@ import { CostCenterComponent } from '../list/cost-center.component';
 import { CostCenterDetailComponent } from '../detail/cost-center-detail.component';
 import { CostCenterUpdateComponent } from '../update/cost-center-update.component';
 import { CostCenterRoutingResolveService } from './cost-center-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const costCenterRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const costCenterRoute: Routes = [
     component: CostCenterComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const costCenterRoute: Routes = [
     resolve: {
       costCenter: CostCenterRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const costCenterRoute: Routes = [
     resolve: {
       costCenter: CostCenterRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const costCenterRoute: Routes = [
     component: CostCenterUpdateComponent,
     resolve: {
       costCenter: CostCenterRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },

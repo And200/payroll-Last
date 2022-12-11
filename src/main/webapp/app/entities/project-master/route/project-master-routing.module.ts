@@ -6,6 +6,7 @@ import { ProjectMasterComponent } from '../list/project-master.component';
 import { ProjectMasterDetailComponent } from '../detail/project-master-detail.component';
 import { ProjectMasterUpdateComponent } from '../update/project-master-update.component';
 import { ProjectMasterRoutingResolveService } from './project-master-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const projectMasterRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const projectMasterRoute: Routes = [
     component: ProjectMasterComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const projectMasterRoute: Routes = [
     resolve: {
       projectMaster: ProjectMasterRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const projectMasterRoute: Routes = [
     resolve: {
       projectMaster: ProjectMasterRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const projectMasterRoute: Routes = [
     component: ProjectMasterUpdateComponent,
     resolve: {
       projectMaster: ProjectMasterRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },

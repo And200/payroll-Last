@@ -6,6 +6,7 @@ import { SocialPaymentComponent } from '../list/social-payment.component';
 import { SocialPaymentDetailComponent } from '../detail/social-payment-detail.component';
 import { SocialPaymentUpdateComponent } from '../update/social-payment-update.component';
 import { SocialPaymentRoutingResolveService } from './social-payment-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const socialPaymentRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const socialPaymentRoute: Routes = [
     component: SocialPaymentComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,10 @@ const socialPaymentRoute: Routes = [
     resolve: {
       socialPayment: SocialPaymentRoutingResolveService,
     },
+    data: {
+      defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +36,10 @@ const socialPaymentRoute: Routes = [
     resolve: {
       socialPayment: SocialPaymentRoutingResolveService,
     },
+    data: {
+      defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +47,10 @@ const socialPaymentRoute: Routes = [
     component: SocialPaymentUpdateComponent,
     resolve: {
       socialPayment: SocialPaymentRoutingResolveService,
+    },
+    data: {
+      defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },

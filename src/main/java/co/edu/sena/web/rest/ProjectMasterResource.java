@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.ProjectMasterRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.ProjectMasterService;
 import co.edu.sena.service.dto.ProjectMasterDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,11 +58,18 @@ public class ProjectMasterResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/project-masters")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<ProjectMasterDTO> createProjectMaster(@Valid @RequestBody ProjectMasterDTO projectMasterDTO)
         throws URISyntaxException {
         log.debug("REST request to save ProjectMaster : {}", projectMasterDTO);
         if (projectMasterDTO.getId() != null) {
             throw new BadRequestAlertException("A new projectMaster cannot already have an ID", ENTITY_NAME, "idexists");
+        } else if (projectMasterRepository.findByProjectMasterName(projectMasterDTO.getProjectMasterName()).isPresent()) {
+            throw new BadRequestAlertException(
+                "A new projectMaster cannot already have an existing projectMaster Name",
+                ENTITY_NAME,
+                "nameExist"
+            );
         }
         ProjectMasterDTO result = projectMasterService.save(projectMasterDTO);
         return ResponseEntity
@@ -80,6 +89,7 @@ public class ProjectMasterResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/project-masters/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<ProjectMasterDTO> updateProjectMaster(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody ProjectMasterDTO projectMasterDTO
@@ -115,6 +125,7 @@ public class ProjectMasterResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/project-masters/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<ProjectMasterDTO> partialUpdateProjectMaster(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody ProjectMasterDTO projectMasterDTO
@@ -147,6 +158,7 @@ public class ProjectMasterResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of projectMasters in body.
      */
     @GetMapping("/project-masters")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<List<ProjectMasterDTO>> getAllProjectMasters(
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         @RequestParam(required = false, defaultValue = "true") boolean eagerload
@@ -169,6 +181,7 @@ public class ProjectMasterResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the projectMasterDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/project-masters/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<ProjectMasterDTO> getProjectMaster(@PathVariable Long id) {
         log.debug("REST request to get ProjectMaster : {}", id);
         Optional<ProjectMasterDTO> projectMasterDTO = projectMasterService.findOne(id);
@@ -182,6 +195,7 @@ public class ProjectMasterResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/project-masters/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<Void> deleteProjectMaster(@PathVariable Long id) {
         log.debug("REST request to delete ProjectMaster : {}", id);
         projectMasterService.delete(id);

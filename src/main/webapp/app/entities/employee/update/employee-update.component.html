@@ -153,11 +153,11 @@
 
         <div class="row mb-3">
           <label class="form-label" payrollTranslate="payrollApp.employee.mobile" for="field_mobile">Mobile</label>
-          <input type="number" class="form-control" name="mobile" id="field_mobile" data-cy="mobile" formControlName="mobile" />
+          <input type="text" class="form-control" name="mobile" id="field_mobile" data-cy="mobile" formControlName="mobile" />
           <div *ngIf="editForm.get('mobile')!.invalid && (editForm.get('mobile')!.dirty || editForm.get('mobile')!.touched)">
             <small
               class="form-text text-danger"
-              *ngIf="editForm.get('mobile')?.errors?.required"
+              *ngIf="editForm.get('mobile')?.errors?.required && editForm.get('mobile')?.errors?.maxlength"
               payrollTranslate="entity.validation.required"
             >
               This field is required.

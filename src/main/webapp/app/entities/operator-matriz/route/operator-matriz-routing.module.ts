@@ -6,6 +6,7 @@ import { OperatorMatrizComponent } from '../list/operator-matriz.component';
 import { OperatorMatrizDetailComponent } from '../detail/operator-matriz-detail.component';
 import { OperatorMatrizUpdateComponent } from '../update/operator-matriz-update.component';
 import { OperatorMatrizRoutingResolveService } from './operator-matriz-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const operatorMatrizRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const operatorMatrizRoute: Routes = [
     component: OperatorMatrizComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const operatorMatrizRoute: Routes = [
     resolve: {
       operatorMatriz: OperatorMatrizRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const operatorMatrizRoute: Routes = [
     resolve: {
       operatorMatriz: OperatorMatrizRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const operatorMatrizRoute: Routes = [
     component: OperatorMatrizUpdateComponent,
     resolve: {
       operatorMatriz: OperatorMatrizRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },

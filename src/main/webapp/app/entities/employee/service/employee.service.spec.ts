@@ -31,7 +31,7 @@ describe('Employee Service', () => {
       address: 'AAAAAAA',
       dateStart: currentDate,
       city: 'AAAAAAA',
-      mobile: 0,
+      mobile: '3545555',
       stateEmployee: StateEmployee.ACTIVE,
     };
   });

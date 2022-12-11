@@ -9,6 +9,12 @@
       "500": "Error interno del servidor."
     },
     "concurrencyFailure": "Otro usuario ha modificado estos datos al mismo tiempo que tú. Tus cambios fueron rechazados.",
-    "validation": "Error de validación en el servidor."
+    "validation": "Error de validación en el servidor.",
+    "documentNumberExist": "Ya existe ese numero de documento",
+    "nameExist": "Ya existe un registro asociado a ese nombre",
+    "documentInitialsExist": "Ya existen esas iniciales",
+    "documentNameExist": "Ya existe ese nombre de documento",
+    "alreadyExistAccountPlan": "Ya existe ese plan de cuenta",
+    "costCenterNameExist": "Ya existe un centro de costos con ese nombre"
   }
 }

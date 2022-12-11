@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.SocialPaymentRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.SocialPaymentService;
 import co.edu.sena.service.dto.SocialPaymentDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,6 +58,7 @@ public class SocialPaymentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/social-payments")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<SocialPaymentDTO> createSocialPayment(@Valid @RequestBody SocialPaymentDTO socialPaymentDTO)
         throws URISyntaxException {
         log.debug("REST request to save SocialPayment : {}", socialPaymentDTO);
@@ -80,6 +83,7 @@ public class SocialPaymentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/social-payments/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<SocialPaymentDTO> updateSocialPayment(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody SocialPaymentDTO socialPaymentDTO
@@ -115,6 +119,7 @@ public class SocialPaymentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/social-payments/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<SocialPaymentDTO> partialUpdateSocialPayment(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody SocialPaymentDTO socialPaymentDTO
@@ -146,6 +151,7 @@ public class SocialPaymentResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of socialPayments in body.
      */
     @GetMapping("/social-payments")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<List<SocialPaymentDTO>> getAllSocialPayments(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of SocialPayments");
         Page<SocialPaymentDTO> page = socialPaymentService.findAll(pageable);
@@ -160,6 +166,7 @@ public class SocialPaymentResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the socialPaymentDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/social-payments/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<SocialPaymentDTO> getSocialPayment(@PathVariable Long id) {
         log.debug("REST request to get SocialPayment : {}", id);
         Optional<SocialPaymentDTO> socialPaymentDTO = socialPaymentService.findOne(id);
@@ -173,6 +180,7 @@ public class SocialPaymentResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/social-payments/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<Void> deleteSocialPayment(@PathVariable Long id) {
         log.debug("REST request to delete SocialPayment : {}", id);
         socialPaymentService.delete(id);

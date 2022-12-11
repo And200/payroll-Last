@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import co.edu.sena.IntegrationTest;
 import co.edu.sena.domain.Period;
 import co.edu.sena.repository.PeriodRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.dto.PeriodDTO;
 import co.edu.sena.service.mapper.PeriodMapper;
 import java.util.List;
@@ -28,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 class PeriodResourceIT {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";

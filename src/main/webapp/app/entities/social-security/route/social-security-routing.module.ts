@@ -6,6 +6,7 @@ import { SocialSecurityComponent } from '../list/social-security.component';
 import { SocialSecurityDetailComponent } from '../detail/social-security-detail.component';
 import { SocialSecurityUpdateComponent } from '../update/social-security-update.component';
 import { SocialSecurityRoutingResolveService } from './social-security-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const socialSecurityRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const socialSecurityRoute: Routes = [
     component: SocialSecurityComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const socialSecurityRoute: Routes = [
     resolve: {
       socialSecurity: SocialSecurityRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const socialSecurityRoute: Routes = [
     resolve: {
       socialSecurity: SocialSecurityRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const socialSecurityRoute: Routes = [
     component: SocialSecurityUpdateComponent,
     resolve: {
       socialSecurity: SocialSecurityRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },

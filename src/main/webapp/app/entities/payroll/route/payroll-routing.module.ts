@@ -6,6 +6,7 @@ import { PayrollComponent } from '../list/payroll.component';
 import { PayrollDetailComponent } from '../detail/payroll-detail.component';
 import { PayrollUpdateComponent } from '../update/payroll-update.component';
 import { PayrollRoutingResolveService } from './payroll-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const payrollRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const payrollRoute: Routes = [
     component: PayrollComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const payrollRoute: Routes = [
     resolve: {
       payroll: PayrollRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const payrollRoute: Routes = [
     resolve: {
       payroll: PayrollRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const payrollRoute: Routes = [
     component: PayrollUpdateComponent,
     resolve: {
       payroll: PayrollRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
     },
     canActivate: [UserRouteAccessService],
   },

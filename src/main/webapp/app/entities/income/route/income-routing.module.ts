@@ -6,6 +6,7 @@ import { IncomeComponent } from '../list/income.component';
 import { IncomeDetailComponent } from '../detail/income-detail.component';
 import { IncomeUpdateComponent } from '../update/income-update.component';
 import { IncomeRoutingResolveService } from './income-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const incomeRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const incomeRoute: Routes = [
     component: IncomeComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const incomeRoute: Routes = [
     resolve: {
       income: IncomeRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const incomeRoute: Routes = [
     resolve: {
       income: IncomeRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const incomeRoute: Routes = [
     component: IncomeUpdateComponent,
     resolve: {
       income: IncomeRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER, Authority.ASSISTANT],
     },
     canActivate: [UserRouteAccessService],
   },

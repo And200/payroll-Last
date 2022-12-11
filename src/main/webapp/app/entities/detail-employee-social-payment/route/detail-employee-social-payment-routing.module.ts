@@ -6,6 +6,7 @@ import { DetailEmployeeSocialPaymentComponent } from '../list/detail-employee-so
 import { DetailEmployeeSocialPaymentDetailComponent } from '../detail/detail-employee-social-payment-detail.component';
 import { DetailEmployeeSocialPaymentUpdateComponent } from '../update/detail-employee-social-payment-update.component';
 import { DetailEmployeeSocialPaymentRoutingResolveService } from './detail-employee-social-payment-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const detailEmployeeSocialPaymentRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const detailEmployeeSocialPaymentRoute: Routes = [
     component: DetailEmployeeSocialPaymentComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const detailEmployeeSocialPaymentRoute: Routes = [
     resolve: {
       detailEmployeeSocialPayment: DetailEmployeeSocialPaymentRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const detailEmployeeSocialPaymentRoute: Routes = [
     resolve: {
       detailEmployeeSocialPayment: DetailEmployeeSocialPaymentRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const detailEmployeeSocialPaymentRoute: Routes = [
     component: DetailEmployeeSocialPaymentUpdateComponent,
     resolve: {
       detailEmployeeSocialPayment: DetailEmployeeSocialPaymentRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },

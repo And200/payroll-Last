@@ -49,7 +49,7 @@ export class EmployeeUpdateComponent implements OnInit {
     address: [null, [Validators.required, Validators.maxLength(100)]],
     dateStart: [null, [Validators.required]],
     city: [null, [Validators.required, Validators.maxLength(50)]],
-    mobile: [null, [Validators.required]],
+    mobile: [null, [Validators.required, Validators.maxLength(50)]],
     stateEmployee: [null, [Validators.required]],
     user: [null, Validators.required],
     contract: [null, Validators.required],

@@ -6,6 +6,7 @@ import { PeriodComponent } from '../list/period.component';
 import { PeriodDetailComponent } from '../detail/period-detail.component';
 import { PeriodUpdateComponent } from '../update/period-update.component';
 import { PeriodRoutingResolveService } from './period-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const periodRoute: Routes = [
   {
@@ -13,7 +14,9 @@ const periodRoute: Routes = [
     component: PeriodComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
+
     canActivate: [UserRouteAccessService],
   },
   {
@@ -21,6 +24,9 @@ const periodRoute: Routes = [
     component: PeriodDetailComponent,
     resolve: {
       period: PeriodRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -30,6 +36,9 @@ const periodRoute: Routes = [
     resolve: {
       period: PeriodRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +46,9 @@ const periodRoute: Routes = [
     component: PeriodUpdateComponent,
     resolve: {
       period: PeriodRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },

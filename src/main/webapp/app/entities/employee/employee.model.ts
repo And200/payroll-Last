@@ -18,7 +18,7 @@ export interface IEmployee {
   address?: string;
   dateStart?: dayjs.Dayjs;
   city?: string;
-  mobile?: number;
+  mobile?: string;
   stateEmployee?: StateEmployee;
   user?: IUser;
   detailEmployeeSocialPayments?: IDetailEmployeeSocialPayment[] | null;
@@ -40,7 +40,7 @@ export class Employee implements IEmployee {
     public address?: string,
     public dateStart?: dayjs.Dayjs,
     public city?: string,
-    public mobile?: number,
+    public mobile?: string,
     public stateEmployee?: StateEmployee,
     public user?: IUser,
     public detailEmployeeSocialPayments?: IDetailEmployeeSocialPayment[] | null,

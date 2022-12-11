@@ -18,6 +18,7 @@ import co.edu.sena.domain.SocialSecurity;
 import co.edu.sena.domain.User;
 import co.edu.sena.domain.enumeration.StateEmployee;
 import co.edu.sena.repository.EmployeeRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.EmployeeService;
 import co.edu.sena.service.dto.EmployeeDTO;
 import co.edu.sena.service.mapper.EmployeeMapper;
@@ -50,7 +51,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 class EmployeeResourceIT {
 
     private static final String DEFAULT_COMPLETE_NAME = "AAAAAAAAAA";
@@ -68,8 +69,8 @@ class EmployeeResourceIT {
     private static final String DEFAULT_CITY = "AAAAAAAAAA";
     private static final String UPDATED_CITY = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_MOBILE = 1;
-    private static final Integer UPDATED_MOBILE = 2;
+    private static final String DEFAULT_MOBILE = "321332443";
+    private static final String UPDATED_MOBILE = "321232433";
 
     private static final StateEmployee DEFAULT_STATE_EMPLOYEE = StateEmployee.ACTIVE;
     private static final StateEmployee UPDATED_STATE_EMPLOYEE = StateEmployee.INACTIVE;

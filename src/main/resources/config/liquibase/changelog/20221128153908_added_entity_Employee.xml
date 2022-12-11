@@ -29,7 +29,7 @@
             <column name="city" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
-            <column name="mobile" type="integer">
+            <column name="mobile" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
             <column name="state_employee" type="varchar(255)">
@@ -83,7 +83,7 @@
             <column name="address" type="string"/>
             <column name="date_start" type="date"/>
             <column name="city" type="string"/>
-            <column name="mobile" type="numeric"/>
+            <column name="mobile" type="string"/>
             <column name="state_employee" type="string"/>
             <column name="user_id" type="numeric"/>
             <column name="contract_id" type="numeric"/>

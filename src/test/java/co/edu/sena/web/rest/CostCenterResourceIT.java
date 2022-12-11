@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import co.edu.sena.IntegrationTest;
 import co.edu.sena.domain.CostCenter;
 import co.edu.sena.repository.CostCenterRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.dto.CostCenterDTO;
 import co.edu.sena.service.mapper.CostCenterMapper;
 import java.util.List;
@@ -28,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 class CostCenterResourceIT {
 
     private static final String DEFAULT_COST_CENTER_NAME = "AAAAAAAAAA";

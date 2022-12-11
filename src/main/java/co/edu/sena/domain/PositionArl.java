@@ -27,7 +27,7 @@ public class PositionArl implements Serializable {
 
     @NotNull
     @Size(max = 10)
-    @Column(name = "position_code", length = 10, nullable = false, unique = true)
+    @Column(name = "position_code", length = 10, nullable = false)
     private String positionCode;
 
     @NotNull

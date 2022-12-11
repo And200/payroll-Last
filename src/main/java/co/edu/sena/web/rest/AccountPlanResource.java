@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.AccountPlanRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.AccountPlanService;
 import co.edu.sena.service.dto.AccountPlanDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,10 +58,17 @@ public class AccountPlanResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/account-plans")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<AccountPlanDTO> createAccountPlan(@Valid @RequestBody AccountPlanDTO accountPlanDTO) throws URISyntaxException {
         log.debug("REST request to save AccountPlan : {}", accountPlanDTO);
         if (accountPlanDTO.getId() != null) {
             throw new BadRequestAlertException("A new accountPlan cannot already have an ID", ENTITY_NAME, "idexists");
+        } else if (accountPlanRepository.findByDescription(accountPlanDTO.getDescription()).isPresent()) {
+            throw new BadRequestAlertException(
+                "A new accountPlan cannot already have an existint Account Plan",
+                ENTITY_NAME,
+                "alreadyExistAccountPlan"
+            );
         }
         AccountPlanDTO result = accountPlanService.save(accountPlanDTO);
         return ResponseEntity
@@ -79,6 +88,7 @@ public class AccountPlanResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/account-plans/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<AccountPlanDTO> updateAccountPlan(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody AccountPlanDTO accountPlanDTO
@@ -145,6 +155,15 @@ public class AccountPlanResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of accountPlans in body.
      */
     @GetMapping("/account-plans")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<List<AccountPlanDTO>> getAllAccountPlans(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of AccountPlans");
         Page<AccountPlanDTO> page = accountPlanService.findAll(pageable);
@@ -159,6 +178,15 @@ public class AccountPlanResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the accountPlanDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/account-plans/{id}")
+    @PreAuthorize(
+        "hasAuthority('" +
+        AuthoritiesConstants.ADMIN +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.MANAGER +
+        "')or hasAuthority('" +
+        AuthoritiesConstants.ASSISTANT +
+        "')"
+    )
     public ResponseEntity<AccountPlanDTO> getAccountPlan(@PathVariable Long id) {
         log.debug("REST request to get AccountPlan : {}", id);
         Optional<AccountPlanDTO> accountPlanDTO = accountPlanService.findOne(id);
@@ -172,6 +200,7 @@ public class AccountPlanResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/account-plans/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<Void> deleteAccountPlan(@PathVariable Long id) {
         log.debug("REST request to delete AccountPlan : {}", id);
         accountPlanService.delete(id);

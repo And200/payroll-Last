@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.OperatorTypeRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.OperatorTypeService;
 import co.edu.sena.service.dto.OperatorTypeDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,6 +58,7 @@ public class OperatorTypeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/operator-types")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<OperatorTypeDTO> createOperatorType(@Valid @RequestBody OperatorTypeDTO operatorTypeDTO)
         throws URISyntaxException {
         log.debug("REST request to save OperatorType : {}", operatorTypeDTO);
@@ -80,6 +83,7 @@ public class OperatorTypeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/operator-types/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<OperatorTypeDTO> updateOperatorType(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody OperatorTypeDTO operatorTypeDTO
@@ -115,6 +119,7 @@ public class OperatorTypeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/operator-types/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<OperatorTypeDTO> partialUpdateOperatorType(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody OperatorTypeDTO operatorTypeDTO
@@ -146,6 +151,7 @@ public class OperatorTypeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of operatorTypes in body.
      */
     @GetMapping("/operator-types")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<List<OperatorTypeDTO>> getAllOperatorTypes(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of OperatorTypes");
         Page<OperatorTypeDTO> page = operatorTypeService.findAll(pageable);
@@ -160,6 +166,7 @@ public class OperatorTypeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the operatorTypeDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/operator-types/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<OperatorTypeDTO> getOperatorType(@PathVariable Long id) {
         log.debug("REST request to get OperatorType : {}", id);
         Optional<OperatorTypeDTO> operatorTypeDTO = operatorTypeService.findOne(id);
@@ -173,6 +180,7 @@ public class OperatorTypeResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/operator-types/{id}")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<Void> deleteOperatorType(@PathVariable Long id) {
         log.debug("REST request to delete OperatorType : {}", id);
         operatorTypeService.delete(id);

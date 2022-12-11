@@ -6,6 +6,7 @@ import { ContractComponent } from '../list/contract.component';
 import { ContractDetailComponent } from '../detail/contract-detail.component';
 import { ContractUpdateComponent } from '../update/contract-update.component';
 import { ContractRoutingResolveService } from './contract-routing-resolve.service';
+import { Authority } from '../../../config/authority.constants';
 
 const contractRoute: Routes = [
   {
@@ -13,6 +14,7 @@ const contractRoute: Routes = [
     component: ContractComponent,
     data: {
       defaultSort: 'id,asc',
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,6 +24,9 @@ const contractRoute: Routes = [
     resolve: {
       contract: ContractRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -30,6 +35,9 @@ const contractRoute: Routes = [
     resolve: {
       contract: ContractRoutingResolveService,
     },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -37,6 +45,9 @@ const contractRoute: Routes = [
     component: ContractUpdateComponent,
     resolve: {
       contract: ContractRoutingResolveService,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.MANAGER],
     },
     canActivate: [UserRouteAccessService],
   },

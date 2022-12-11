@@ -37,7 +37,7 @@
         <dt><span payrollTranslate="payrollApp.payroll.positionArl">Position Arl</span></dt>
         <dd>
           <div *ngIf="payroll.positionArl">
-            <a [routerLink]="['/position-arl', payroll.positionArl?.id, 'view']">{{ payroll.positionArl?.positionCode }}</a>
+            <a [routerLink]="['/position-arl', payroll.positionArl?.id, 'view']">{{ payroll.positionArl?.position }}</a>
           </div>
         </dd>
         <dt><span payrollTranslate="payrollApp.payroll.employee">Employee</span></dt>

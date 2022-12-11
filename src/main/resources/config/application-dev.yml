@@ -32,9 +32,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3307/payroll?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
-    username: root
-    password: Yatequiceno20022
+    url: jdbc:mysql://payroll.clnmaqcb5keo.us-east-1.rds.amazonaws.com:3306/payroll?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: payroll
+    password: payroll2022
     hikari:
       poolName: Hikari
       auto-commit: false
